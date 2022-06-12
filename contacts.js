@@ -9,14 +9,19 @@ const listContacts = async () => {
 };
 
 const getContactById = async (contactId) => {
-  const contact = await listContacts();
-  const result = contact.find((contact) => contact.id === contactId);
+  const contacts = await listContacts();
+  const result = contacts.find((contact) => contact.id === contactId);
   if (!result) return null;
   return result;
 };
 
 const removeContact = async (contactId) => {
-  // ...твой код
+  const contacts = await listContacts();
+  const index = contacts.getContactById((contact) => contact.id === contactId);
+  if (index ===-1) {return null;}
+  const [removingContact]=contacts.splice(index,1);
+  await fs.writeFile(contactsPath,JSON.stringify(contacts));
+  return removingContact;
 }
 
 const addContact = async (name, email, phone) => {
@@ -26,7 +31,7 @@ const addContact = async (name, email, phone) => {
     email,
     phone,
   };
-  const contact = await listContacts();
-  contact.push(data);
-  await fs.writeFile(contactsPath, JSON.stringify(contact));
+  const contacts = await listContacts();
+  contacts.push(data);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts));
 };
