@@ -1,11 +1,10 @@
-//const argv = require('yargs').argv;
-const operations = require('./db/index');
+const argv = require('yargs').argv;
+const operations = require('./contacts');
 
 const invokeAction = async({ action, id, name, email, phone }) =>{
   switch (action) {
     case 'list':
-        const data= await  operations.listContacts();
-       console.log(data);
+       console.log(await  operations.listContacts());
       break;
 
     case 'get':
@@ -28,5 +27,6 @@ const invokeAction = async({ action, id, name, email, phone }) =>{
   }
 }
 
+invokeAction({action:"list"});
+
 //invokeAction(argv);
-//console.log(idx);
